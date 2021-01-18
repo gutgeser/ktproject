@@ -1,0 +1,7 @@
+.vagrant
+.git
+.idea
+.DS_store
+venv/
+Vault/
+241120/
