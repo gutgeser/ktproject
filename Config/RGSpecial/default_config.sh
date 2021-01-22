@@ -2,11 +2,11 @@ PROJECT_CODE_SQL_MANAGEMENT_FILES=( \
                     '' \
 )
 
-PROJECT_CODE_SQL_PROCEDURES_FILES=( \
+PROJECT_CODE_SQL_PROCEDURE_FILES=( \
                     '' \
 )
 
-PROJECT_CODE_SQL_QUERIES_FILES=( \
+PROJECT_CODE_SQL_QUERY_FILES=( \
                     ''
 )
 

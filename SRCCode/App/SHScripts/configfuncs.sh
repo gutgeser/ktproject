@@ -52,6 +52,15 @@ call_app_query_sql_script() {
 }
 
 
+
+load_project_schema_files() {
+  arr=("$@")
+  for i in "${arr[@]}"; do
+    echo ${i}
+    mysql -u $_MYSQL_USER -h $_MYSQL_HOST_IP --password=$_MYSQL_USER_PASSWORD $_CONFIG_DATABASE < 'SRCCode/'$_CONFIG_PROJECT'/SQLScripts/Schemas/'${i}
+  done
+}
+
 load_project_procedure_files() {
   arr=("$@")
   for i in "${arr[@]}"; do
@@ -59,6 +68,23 @@ load_project_procedure_files() {
     mysql -u $_MYSQL_USER -h $_MYSQL_HOST_IP --password=$_MYSQL_USER_PASSWORD $_CONFIG_DATABASE < 'SRCCode/'$_CONFIG_PROJECT'/SQLScripts/Procedures/'${i}
   done
 }
+
+load_project_data_sql_files() {
+  arr=("$@")
+  for i in "${arr[@]}"; do
+    echo ${i}
+    mysql -u $_MYSQL_USER -h $_MYSQL_HOST_IP --password=$_MYSQL_USER_PASSWORD $_CONFIG_DATABASE < 'Data/'$_CONFIG_PROJECT'/SQL/'${i}
+  done
+}
+
+call_project_management_sql_script() {
+  mysql -u $_MYSQL_USER -h $_MYSQL_HOST_IP --password=$_MYSQL_USER_PASSWORD $_CONFIG_DATABASE < 'SRCCode/'$_CONFIG_PROJECT'/SQLScripts/Management/'${1}
+}
+
+call_project_query_sql_script() {
+  mysql -u $_MYSQL_USER -h $_MYSQL_HOST_IP --password=$_MYSQL_USER_PASSWORD $_CONFIG_DATABASE < 'SRCCode/'$_CONFIG_PROJECT'/SQLScripts/Queries/'${1}
+}
+
 
 configure_mysql_server_for_csv_loading() {
   sudo cp 'Vault/Servers/'$_CONFIG_HOST'/SERVERCONFIG_CSV/etc/my.cnf.d/mariadb-server.cnf' '/etc/my.cnf.d'
@@ -84,6 +110,13 @@ load_csv_file_into_new_temporary_table() {
   tablename=$1;
   echo $tablename;
   mysql -u 'root' -h 'localhost' --password=$_MYSQL_ROOT_PASSWORD $_CONFIG_DATABASE < 'SRCCode/'$_CONFIG_PROJECT'/SQLScripts/Schemas/'$tablename'.sql'
+  mysqlimport --ignore-lines=1 --fields-terminated-by=, --verbose -u 'root' -h 'localhost' --password=$_MYSQL_ROOT_PASSWORD $_CONFIG_DATABASE $_SERVER_PROJECT_ROOT_DIR'/Data/'$_CONFIG_PROJECT'/CSV/'$tablename'.csv'
+}
+
+# Not used yet:
+load_csv_file_into_existing_temporary_table() {
+  tablename=$1;
+  echo $tablename;
   mysqlimport --ignore-lines=1 --fields-terminated-by=, --verbose -u 'root' -h 'localhost' --password=$_MYSQL_ROOT_PASSWORD $_CONFIG_DATABASE $_SERVER_PROJECT_ROOT_DIR'/Data/'$_CONFIG_PROJECT'/CSV/'$tablename'.csv'
 }
 
@@ -121,11 +154,4 @@ load_mysql_user_files() {
   IFS=$OLDIFS
 }
 
-# Not used yet:
-load_csv_file_into_existing_temporary_table() {
-  tablename=$1;
-  echo $tablename;
-  #mysql -u 'root' -h 'localhost' --password=$_MYSQL_ROOT_PASSWORD $_CONFIG_DATABASE < 'SRCCode/'$_CONFIG_PROJECT'/SQLScripts/Schemas/'$tablename'.sql'
-  mysqlimport --ignore-lines=1 --fields-terminated-by=, --verbose -u 'root' -h 'localhost' --password=$_MYSQL_ROOT_PASSWORD $_CONFIG_DATABASE $_SERVER_PROJECT_ROOT_DIR'/Data/'$_CONFIG_PROJECT'/CSV/'$tablename'.csv'
-}
 
