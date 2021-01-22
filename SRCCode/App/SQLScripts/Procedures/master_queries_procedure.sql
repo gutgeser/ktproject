@@ -1,6 +1,6 @@
 DELIMITER $$
-DROP PROCEDURE IF EXISTS master_queries $$
-CREATE PROCEDURE master_queries(
+DROP PROCEDURE IF EXISTS master_queries_procedure $$
+CREATE PROCEDURE master_queries_procedure(
     IN locID VARCHAR(100),
     IN queryID VARCHAR(100)
     )

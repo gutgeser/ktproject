@@ -1,0 +1,3 @@
+ConfigName            Server         ServerConfig    Project     ProjectConfig     Database            Action                                            Notes(NO_SPACES_HERE)
+--------------        ------------   ------------    --------    -------------     --------            --------------------------------------            ----------------------------------------------------------
+A_SomeName            someserver     some_serv_conf  SomeProj    some_proj_conf    some_db             some_action                                       #SOME_NOTE

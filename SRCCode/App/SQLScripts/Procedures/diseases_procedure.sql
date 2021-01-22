@@ -1,4 +1,3 @@
-
 DELIMITER $$
 DROP PROCEDURE IF EXISTS diseases_procedure$$
 CREATE PROCEDURE diseases_procedure()
