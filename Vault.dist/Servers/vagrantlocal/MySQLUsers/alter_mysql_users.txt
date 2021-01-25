@@ -1,2 +1,2 @@
-vagrant localhost vagrantpass ALL
-vagrant 192.168.xxx.yyy vagrantpass ALL
+vagrant localhost somepassword ALL
+vagrant 192.168.33.1 somepassword ALL

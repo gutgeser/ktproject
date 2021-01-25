@@ -1,13 +1,13 @@
 ConfigName            Server         ServerConfig    Project     ProjectConfig     Database            Action                                            Notes(NO_SPACES_HERE)
 --------------        ------------   ------------    --------    -------------     --------            --------------------------------------            ----------------------------------------------------------
-1_loadTotalDB         vagrantlocal   default_config  App         default_config    KTlocal             recreate_and_load_database_and_csv_files          #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
+1_loadKTDB            vagrantlocal   default_config  App         default_config    KTlocal             recreate_and_load_database_and_csv_files          #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
 1_loadDB              vagrantlocal   default_config  App         default_config    KTlocal             recreate_and_load_database                        #THIS_RELOADS_THE_DATABASE_ON_THE_LOCAL_SERVER
 1_loadCsvOnly         vagrantlocal   default_config  App         default_config    KTlocal             load_csv_files                                    #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
 1_recreateDB          vagrantlocal   default_config  App         default_config    KTlocal             recreate_db                                       #ASSUMES_DB_WAS_CREATED_BEFORE_AND_USER_HAS_CREATE_DB_PRIVILEGES
+1_createNewDB         vagrantlocal   default_config  App         default_config    KTlocal             create_db_as_root                                 #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER_WHEN_DB_IS_CREATED_FOR_THE_FIRST_TIME
+1_grantUsersAccess    vagrantlocal   default_config  App         default_config    KTlocal             MySQLUsers/grant_users_db_privileges_on_hosts     #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
 
-1_createNewDB         vagrantlocal   default_config  App         default_config    db_bgproject        create_db_as_root                                 #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER_WHEN_DB_IS_CREATED_FOR_THE_FIRST_TIME
 1_loadNewUsers        vagrantlocal   default_config  App         default_config    NONE                MySQLUsers/drop_and_create_users_on_hosts         #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
-1_grantUsersAccess    vagrantlocal   default_config  App         default_config    db_bgproject        MySQLUsers/grant_users_db_privileges_on_hosts     #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
 1_changeUsersPW       vagrantlocal   default_config  App         default_config    NONE                MySQLUsers/update_users_passwords_on_hosts        #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
 1_deleteUsers         vagrantlocal   default_config  App         default_config    NONE                MySQLUsers/drop_users_on_hosts                    #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
 1_deleteDB            vagrantlocal   default_config  App         default_config    some_dbname         drop_db_as_root                                   #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
@@ -21,3 +21,5 @@ ConfigName            Server         ServerConfig    Project     ProjectConfig  
 4_loadDB              vagrantlocal   default_config  BgProject   default_config    db_bgproject        recreate_and_load_database                        #THIS_RELOADS_THE_DATABASE_ON_THE_LOCAL_SERVER
 4_loadCsvOnly         vagrantlocal   default_config  BgProject   default_config    db_bgproject        load_csv_files                                    #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
 4_recreateDB          vagrantlocal   default_config  BgProject   default_config    db_bgproject        recreate_db                                       #ASSUMES_DB_WAS_CREATED_BEFORE_AND_USER_HAS_CREATE_DB_PRIVILEGES
+
+5_loadMacDataDB       vagrantlocal   default_config  MacData     default_config    KTlocal             recreate_and_load_database_and_csv_files          #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER

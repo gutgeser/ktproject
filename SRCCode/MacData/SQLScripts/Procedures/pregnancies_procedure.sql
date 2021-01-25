@@ -3,38 +3,52 @@ DROP PROCEDURE IF EXISTS pregnancies_procedure $$
 CREATE PROCEDURE pregnancies_procedure()
 BEGIN
 
-  DECLARE l_factid CHAR(36);
-  DECLARE l_fact VARCHAR(128);
-
-  DECLARE l_loc_id INT(11);
   DECLARE l_id VARCHAR(100);
-  DECLARE l_Pop INT(11);
-  DECLARE l_Exposed INT(11);
+  DECLARE l_sample_id int(11);
+  DECLARE l_pregnant enum('y','n','N/A') DEFAULT 'N/A';
+  DECLARE l_blastocyst VARCHAR(11) DEFAULT NULL;
+  DECLARE l_scar VARCHAR(11) DEFAULT NULL;
+  DECLARE l_fetus VARCHAR(11) DEFAULT NULL;
+  DECLARE l_implant VARCHAR(11) DEFAULT NULL;
+
 
   DECLARE no_more_records MEDIUMINT(5);
 
   DECLARE cu2 CURSOR FOR
-    SELECT loc_id, Pop, Exposed
-    FROM rodenticides_csv;
+    SELECT id, pregnant, blastocyst, scar, fetus, implant
+    FROM pregnancies_csv;
 
   DECLARE CONTINUE HANDLER FOR NOT FOUND SET no_more_records = 1;
+OPEN cu2;
+  pregnancies_loop:REPEAT
+    FETCH cu2 INTO l_id, l_pregnant, l_blastocyst, l_scar, l_fetus, l_implant; #we declared the cursor, we are taking the info from the cursor and putting it into these declared variables
 
-  OPEN cu2;
-  fact_loop:REPEAT
-    FETCH cu2 INTO l_loc_id, l_Pop, l_Exposed;
+    IF l_blastocyst = '' THEN SET l_blastocyst = 0; end if;
+    IF l_scar = '' THEN SET l_scar = 0; end if;
+    IF l_fetus = '' THEN SET l_fetus = 0; end if;
+    IF l_implant = '' THEN SET l_implant = 0; end if;
 
-    SELECT id INTO l_id
-    FROM locations WHERE lbl = l_loc_id LIMIT 1;
+    SET l_blastocyst = CAST(l_blastocyst AS INTEGER);
+    SET l_scar = CAST(l_scar AS INTEGER);
+    SET l_fetus = CAST(l_fetus AS INTEGER);
+    SET l_implant = CAST(l_implant AS INTEGER);
 
-    INSERT INTO rodenticides SET location_id = l_id, Location_label = l_loc_id, Pop = l_Pop, Exposed = l_Exposed;
+    SELECT id INTO l_sample_id
+    FROM samples WHERE client_id = l_id LIMIT 1;
+
+    INSERT INTO pregnancies SET sample_id = l_sample_id, pregnant = l_pregnant,
+                                blastocyst = l_blastocyst,
+                                scar = l_scar,
+                                fetus = l_fetus,
+                                implant = l_implant;
 
     IF no_more_records THEN
-      LEAVE fact_loop;
+      LEAVE pregnancies_loop;
     END IF;
 
     UNTIL no_more_records
 
-  END REPEAT fact_loop;
+  END REPEAT pregnancies_loop;
   CLOSE cu2;
   SET no_more_records = 0;
 
