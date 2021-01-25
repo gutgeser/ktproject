@@ -2,6 +2,7 @@
 .git
 .idea
 .DS_store
+ConfigList*.txt
 venv/
 Vault/
 241120/
