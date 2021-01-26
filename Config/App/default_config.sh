@@ -14,6 +14,7 @@ APP_CODE_SQL_PROCEDURE_FILES=( \
                     'PACs_procedure.sql' \
                     'rodenticides_procedure.sql' \
                     'samples_procedure.sql' \
+                    'complex_example_procedure.sql' \
 )
 
 APP_CODE_SQL_QUERY_FILES=( \

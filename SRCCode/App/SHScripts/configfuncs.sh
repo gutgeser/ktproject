@@ -125,13 +125,13 @@ load_mysql_user_files() {
   OLDIFS=$IFS
   IFS=' '
   if [ -f "$_NEW_MYSQL_USER_INPUT_FILE" ]; then
-  while read user host password grants
+  while read -r user host password grants
   do
-    _NEW_MYSQL_USERS+=(${user})
-    _NEW_MYSQL_USER_HOSTS+=(${host})
-    _NEW_MYSQL_USER_PASSWORDS+=(${password})
+    _NEW_MYSQL_USERS+=("${user}")
+    _NEW_MYSQL_USER_HOSTS+=("${host}")
+    _NEW_MYSQL_USER_PASSWORDS+=("${password}")
     _NEW_MYSQL_USER_GRANTS+=("$grants")
-  done < ${_NEW_MYSQL_USER_INPUT_FILE}
+  done < "${_NEW_MYSQL_USER_INPUT_FILE}"
   fi
 
   if [ -f "$_ALTER_MYSQL_USER_INPUT_FILE" ]; then
