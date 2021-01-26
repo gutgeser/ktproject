@@ -8,12 +8,20 @@ ConfigName            Server         ServerConfig    Project     ProjectConfig  
 1_grantUsersAccess    vagrantlocal   default_config  App         default_config    KTlocal             MySQLUsers/grant_users_db_privileges_on_hosts     #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
 
 1_loadNewUsers        vagrantlocal   default_config  App         default_config    NONE                MySQLUsers/drop_and_create_users_on_hosts         #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
+1_loadTotalDB         vagrantlocal   default_config  App         default_config    db_name             recreate_and_load_database_and_csv_files          #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
+1_loadDB              vagrantlocal   default_config  App         default_config    db_name             recreate_and_load_database                        #THIS_RELOADS_THE_DATABASE_ON_THE_LOCAL_SERVER
+1_loadCsvOnly         vagrantlocal   default_config  App         default_config    db_name             load_csv_files                                    #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
+1_recreateDB          vagrantlocal   default_config  App         default_config    db_name             recreate_db                                       #ASSUMES_DB_WAS_CREATED_BEFORE_AND_USER_HAS_CREATE_DB_PRIVILEGES
+
+1_createNewDB         vagrantlocal   default_config  App         default_config    db_name             create_db_as_root                                 #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER_WHEN_DB_IS_CREATED_FOR_THE_FIRST_TIME
+1_loadNewUsers        vagrantlocal   default_config  App         default_config    NONE                MySQLUsers/drop_and_create_users_on_hosts         #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
+1_grantUsersAccess    vagrantlocal   default_config  App         default_config    db_name             MySQLUsers/grant_users_db_privileges_on_hosts     #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
 1_changeUsersPW       vagrantlocal   default_config  App         default_config    NONE                MySQLUsers/update_users_passwords_on_hosts        #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
 1_deleteUsers         vagrantlocal   default_config  App         default_config    NONE                MySQLUsers/drop_users_on_hosts                    #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
-1_deleteDB            vagrantlocal   default_config  App         default_config    some_dbname         drop_db_as_root                                   #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
+1_deleteDB            vagrantlocal   default_config  App         default_config    db_name             drop_db_as_root                                   #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
 
-2_recreateDB          robvagrant     default_config  App         default_config    KTlocal             recreate_db                                       #ASSUMES_DB_WAS_CREATED_BEFORE_AND_USER_HAS_CREATE_DB_PRIVILEGES
-2_specialpy           robvagrant     default_config  RGSpecial   default_config    NONE                run_python_stuff                                  #DEMO_PYTHON_SCRIPT_INVOCATION
+2_recreateDB          vagrantlocal   default_config  ProjectA    default_config    db_name             recreate_db                                       #ASSUMES_DB_WAS_CREATED_BEFORE_AND_USER_HAS_CREATE_DB_PRIVILEGES
+2_specialpy           vagrantlocal   default_config  ProjectA    default_config    NONE                run_python_stuff                                  #DEMO_PYTHON_SCRIPT_INVOCATION
 
 3_loadDB              ktremote       default_config  App         default_config    KT_dbremote_name    recreate_and_load_database                        #THIS_RELOADS_THE_DATABASE_ON_THE_REMOTE_SERVER
 
@@ -23,3 +31,5 @@ ConfigName            Server         ServerConfig    Project     ProjectConfig  
 4_recreateDB          vagrantlocal   default_config  BgProject   default_config    db_bgproject        recreate_db                                       #ASSUMES_DB_WAS_CREATED_BEFORE_AND_USER_HAS_CREATE_DB_PRIVILEGES
 
 5_loadMacDataDB       vagrantlocal   default_config  MacData     default_config    KTlocal             recreate_and_load_database_and_csv_files          #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
+
+3_loadDB              someserver     default_config  App         default_config    some_db             recreate_and_load_database                        #THIS_RELOADS_THE_DATABASE_ON_THE_REMOTE_SERVER
