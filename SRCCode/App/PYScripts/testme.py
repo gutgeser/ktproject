@@ -9,7 +9,7 @@ cnx = mysql.connector.connect(  user=sys.argv[1],
 
 cursor = cnx.cursor()
 print("Hello Python ! This is App Project Python.")
-print(f"Name of the script      : {sys.argv[0]}")
+print("Name of the script      : {sys.argv[0]}")
 query = ("SELECT Hg, Li, V FROM metals "
           "WHERE sample_id BETWEEN %s AND %s")
 cursor.execute(query, (10, 20))

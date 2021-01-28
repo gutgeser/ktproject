@@ -80,7 +80,40 @@ CREATE TABLE `metals` (
             foreign key (sample_id) references  samples (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `metals_z`;
 
+CREATE TABLE `metals_z` (
+  `id` int(11) unsigned NOT NULL,
+  `sample_id` int(11) unsigned DEFAULT NULL,
+  `Hg` double DEFAULT NULL,
+  `Li` double DEFAULT NULL,
+  `V` double DEFAULT NULL,
+  `Mn` double DEFAULT NULL,
+  `Fe` double DEFAULT NULL,
+  `Co` double DEFAULT NULL,
+  `Ni` double DEFAULT NULL,
+  `Cu` double DEFAULT NULL,
+  `Zn` double DEFAULT NULL,
+  `Ga` double DEFAULT NULL,
+  `Arsenic` double DEFAULT NULL,
+  `Se` double DEFAULT NULL,
+  `Rb` double DEFAULT NULL,
+  `Sr` double DEFAULT NULL,
+  `Mo` double DEFAULT NULL,
+  `Ag` double DEFAULT NULL,
+  `Cd` double DEFAULT NULL,
+  `Sn` double DEFAULT NULL,
+  `Sb` double DEFAULT NULL,
+  `Ba` double DEFAULT NULL,
+  `Tl` double DEFAULT NULL,
+  `Pb` double DEFAULT NULL,
+  `Bi` double DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  constraint UNIQ_3py
+            unique (id),
+  constraint FK_1py
+            foreign key (sample_id) references  samples (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `diseases`;
 

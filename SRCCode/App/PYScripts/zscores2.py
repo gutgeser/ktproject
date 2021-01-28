@@ -16,6 +16,81 @@
 """
 import numpy as np
 import pandas as pd
+import sqlalchemy
+import pymysql
+
+# inarray = cursor.fetchall()
+# print(inarray)
+
+# cursor.close()
+
+# pd.set options("display.max_rows", None, "display.max_columns", None)
+#print(df)
+
+# df.to_sql(
+#     'metals_z2',
+#     con=cnx,
+#     if_exists='replace',
+#     index_label='id',
+#     dtype={
+#         "id": Int,
+#         "sample_id": Int,
+#         "Hg": double,
+#         "V": double,
+#         "Mn": double,
+#         "Fe": double,
+#         "Co": double,
+#         "Ni": double,
+#         "Cu": double,
+#         "Zn": double,
+#         "Ga": double,
+#         "Arsenic": double,
+#         "Se": double,
+#         "Rb": double,
+#         "Sr": double,
+#         "Mo": double,
+#         "Ag": double,
+#         "Cd": double,
+#         "Sn": double,
+#         "Sb": double,
+#         "Ba": double,
+#         "Tl": double,
+#         "Pb": double,
+#         "Bi": double
+#     }
+# )
+
+#df.to_sql('metals_z', cnx, if_exists='replace') #inseting df into table
+# foreach df as row {
+# query = ("INSERT INTO  metals_z SET id=row.id, sample_id=row.sample_id...... ")
+# execute(query)
+#}
+#query = ("SELECT * FROM metals ") #see if I can paramaterize the table
+#cursor.execute(query)
+#print (df)
+
+# colen = len(df[1,:])
+# colen_iter = np.arange(colen)
+# rolen = len(df[:,1])
+# rolen_iter = np.arange(rolen)
+
+#also want to parameterize which columns to use
+
+# zscore_array = np.zeros((rolen,colen))
+# for j in colen_iter:
+#     u = np.mean(df[:,j])
+#     s = np.std(df[:,j])
+#     for i in rolen_iter:
+#         x = df[i,j]
+#         z = (x - u)/s
+#         zscore_array[i,j] = z
+#
+# print(zscore_array)
+
+#iterate row by row, each row with an update statement, INSERT
+
+
+
 """
 compiled_mammals = pd.read_csv("/Users/robertgutgesell/Documents/Alison Holloway/KT Project/DataScience/compiled_mammals.csv")
 mammals=np.asarray(compiled_mammals)
@@ -178,5 +253,7 @@ for j in loc_iter:
             #print(z_master_metals[i,2])
             for l in range(0,sizecalc[j]):
                exec('loc%s[l,:] = z_master_metals[i,:]'  %(x))
+               
+    
 """
 

@@ -1,0 +1,2 @@
+ALTER TABLE metals_z MODIFY sample_id INT(11) UNSIGNED;
+ALTER TABLE metals_z ADD CONSTRAINT FK_101py FOREIGN KEY (sample_id) REFERENCES samples (id);
