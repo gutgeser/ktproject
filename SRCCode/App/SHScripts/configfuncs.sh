@@ -51,7 +51,9 @@ call_app_query_sql_script() {
   mysql -u $_MYSQL_USER -h $_MYSQL_HOST_IP --password=$_MYSQL_USER_PASSWORD $_CONFIG_DATABASE < 'SRCCode/App/SQLScripts/Queries/'${1}
 }
 
-
+call_app_query_sql_script_as_root() {
+  mysql -u root -h $_MYSQL_HOST_IP --password=$_MYSQL_ROOT_PASSWORD $_CONFIG_DATABASE < 'SRCCode/App/SQLScripts/Queries/'${1}
+}
 
 load_project_schema_files() {
   arr=("$@")
@@ -106,10 +108,24 @@ load_csv_files() {
   done
 }
 
+normalize_csv_file_contents(){
+  tablename=$1
+  filepath=$2;
+  filelocation=$filepath'/'$tablename'_original.csv';
+  if [ -f "$filelocation" ]; then
+    while IFS= read -r line; do
+     printf '%s\n' "$line" >> $filepath'/'$tablename'.csv'
+    done < $filelocation;
+  fi
+}
+
 load_csv_file_into_new_temporary_table() {
   tablename=$1;
   echo $tablename;
   mysql -u 'root' -h 'localhost' --password=$_MYSQL_ROOT_PASSWORD $_CONFIG_DATABASE < 'SRCCode/'$_CONFIG_PROJECT'/SQLScripts/Schemas/'$tablename'.sql'
+
+  #normalize_csv_file_contents $tablename $_SERVER_PROJECT_ROOT_DIR'/Data/'$_CONFIG_PROJECT'/CSV'
+
   mysqlimport --ignore-lines=1 --fields-terminated-by=, --verbose -u 'root' -h 'localhost' --password=$_MYSQL_ROOT_PASSWORD $_CONFIG_DATABASE $_SERVER_PROJECT_ROOT_DIR'/Data/'$_CONFIG_PROJECT'/CSV/'$tablename'.csv'
 }
 

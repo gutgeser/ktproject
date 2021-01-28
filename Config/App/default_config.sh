@@ -32,6 +32,7 @@ APP_DATA_SQL_FILES=( \
 )
 
 APP_DATA_CSV_FILES=( \
-                    'hormones_csv.csv'
-                    'pregnancies_csv.csv'
+                    #'hormones_csv.csv'
+                    #'pregnancies_csv.csv'
+                    'test_me_csv.csv'
 )
