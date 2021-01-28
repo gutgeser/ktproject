@@ -14,7 +14,8 @@ APP_CODE_SQL_PROCEDURE_FILES=( \
                     'PACs_procedure.sql' \
                     'rodenticides_procedure.sql' \
                     'samples_procedure.sql' \
-                    'complex_example_procedure.sql' \
+                    'metals_MDL_procedure.sql' \
+                    'PACs_update_procedure.sql' \
 )
 
 APP_CODE_SQL_QUERY_FILES=( \
@@ -24,6 +25,7 @@ APP_CODE_SQL_QUERY_FILES=( \
 APP_CODE_SQL_SCHEMA_FILES=( \
                     'permanent_structure.sql' \
                     'original_csv_structure.sql' \
+                    'pacs_update_csv.sql' \
 )
 
 APP_DATA_SQL_FILES=( \
@@ -32,7 +34,5 @@ APP_DATA_SQL_FILES=( \
 )
 
 APP_DATA_CSV_FILES=( \
-                    #'hormones_csv.csv'
-                    #'pregnancies_csv.csv'
-                    'test_me_csv.csv'
+                    'pacs_update_csv.csv' \
 )

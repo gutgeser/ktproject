@@ -1,2 +1,2 @@
-someuser localhost
-
+donald localhost
+donald 192.168.33.1

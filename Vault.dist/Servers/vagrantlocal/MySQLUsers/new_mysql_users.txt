@@ -1,1 +1,2 @@
-someuser localhost somepass USAGE
+donald 192.168.33.1 donaldpasstwo USAGE
+donald localhost    donaldpasstwo USAGE

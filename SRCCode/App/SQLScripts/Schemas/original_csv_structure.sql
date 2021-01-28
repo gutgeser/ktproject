@@ -128,6 +128,11 @@ CREATE TABLE `PAC_data_for_KT_Project_csv` (
   `Sum_ALK` float unsigned DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- CREATE TABLE `pac_update_csv` (
+--   `SampleID` varchar(50) DEFAULT NULL,
+--   `Sum_Parent` float unsigned DEFAULT NULL,
+--   `Sum_ALK` float unsigned DEFAULT NULL
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `Spatial_PACs_csv`;
 
