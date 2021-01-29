@@ -30,26 +30,27 @@ BEGIN
   DECLARE CONTINUE HANDLER FOR NOT FOUND SET no_more_records = 1;
 
 #I then want to convert 'x' or '+' to 'TRUE' and '-' to FALSE, and convert the fields into booleans
+  SELECT 'Running diseases_procedure';
 
   OPEN cu2;
   fact_loop:REPEAT
-    FETCH cu2 INTO l_Client_id, l_Location, l_Kidney, l_Liver, l_Canine_parainfluenza_virus, l_Canine_adenovirus_2,
+
+        IF no_more_records THEN
+            LEAVE fact_loop;
+        END IF;
+
+        FETCH cu2 INTO l_Client_id, l_Location, l_Kidney, l_Liver, l_Canine_parainfluenza_virus, l_Canine_adenovirus_2,
         l_Canine_herpesvirus_1, l_Diotophyme_renale, l_Canine_distemper_virus, l_Leptospira, l_Toxoplasma;
 
-    SELECT id INTO l_sample_id #there's something wrong with this, I'm both selecting and changing the same variable, may need to create another variable
-    FROM samples WHERE client_id = l_Client_id LIMIT 1;
+        SELECT id INTO l_sample_id #there's something wrong with this, I'm both selecting and changing the same variable, may need to create another variable
+        FROM samples WHERE client_id = l_Client_id LIMIT 1;
 
-    INSERT INTO diseases SET sample_id = l_sample_id, Kidney = l_Kidney, Liver = l_Liver, Canine_parainfluenza_virus = l_Canine_parainfluenza_virus,
+        INSERT INTO diseases SET sample_id = l_sample_id, Kidney = l_Kidney, Liver = l_Liver, Canine_parainfluenza_virus = l_Canine_parainfluenza_virus,
                              Canine_adenovirus_2 = l_Canine_adenovirus_2, Canine_herpesvirus_1 = l_Canine_herpesvirus_1,
                              Diotophyme_renale = l_Diotophyme_renale, Canine_distemper_virus = l_Canine_distemper_virus,
                              Leptospira = l_Leptospira, Toxoplasma = l_Toxoplasma;
 
-    IF no_more_records THEN
-      LEAVE fact_loop;
-    END IF;
-
     UNTIL no_more_records
-
   END REPEAT fact_loop;
   CLOSE cu2;
   SET no_more_records = 0;

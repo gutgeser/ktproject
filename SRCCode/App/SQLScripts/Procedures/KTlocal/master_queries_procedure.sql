@@ -7,6 +7,8 @@ CREATE PROCEDURE master_queries_procedure(
 BEGIN
 #Locations test query
 #Read in location data based on the location read in from the webpage and returns lat and long
+SELECT 'Running master_queries_procedure';
+
 IF queryID = 'loc_query' THEN
 SELECT lat, lng
     FROM locations

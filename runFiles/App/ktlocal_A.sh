@@ -3,6 +3,7 @@ APP_CODE_SQL_PROCEDURE_FILES=( \
                     'KTlocal/locations_procedure.sql' \
                     'KTlocal/master_queries_procedure.sql' \
                     'KTlocal/metals_procedure.sql' \
+                    'KTlocal/metals_zscore_procedure.sql' \
                     'KTlocal/PACs_procedure.sql' \
                     'KTlocal/rodenticides_procedure.sql' \
                     'KTlocal/samples_procedure.sql' \

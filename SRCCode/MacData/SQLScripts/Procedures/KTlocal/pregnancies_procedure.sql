@@ -19,6 +19,9 @@ BEGIN
     FROM pregnancies_csv;
 
   DECLARE CONTINUE HANDLER FOR NOT FOUND SET no_more_records = 1;
+
+  SELECT 'Running pregnancies_procedure';
+
 OPEN cu2;
   pregnancies_loop:REPEAT
     FETCH cu2 INTO l_id, l_pregnant, l_blastocyst, l_scar, l_fetus, l_implant; #we declared the cursor, we are taking the info from the cursor and putting it into these declared variables

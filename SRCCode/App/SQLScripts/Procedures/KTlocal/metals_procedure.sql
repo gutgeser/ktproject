@@ -36,9 +36,14 @@ BEGIN
     FROM animals_csv;
 
   DECLARE CONTINUE HANDLER FOR NOT FOUND SET no_more_records = 1;
+  SELECT 'Running metals_procedure';
 
   OPEN cu2;
   animal_loop:REPEAT
+    IF no_more_records THEN
+        LEAVE animal_loop;
+    END IF;
+
     FETCH cu2 INTO l_SampleID, l_Hg, l_Li, l_V, l_Mn, l_Fe, l_Co, l_Ni, l_Cu, l_Zn, l_Ga,
         l_Arsenic, l_Se, l_Rb, l_Sr, l_Mo, l_Ag, l_Cd, l_Sn, l_Sb, l_Ba, l_Tl, l_Pb, l_Bi; #we declared the cursor, we are taking the info from the cursor and putting it into these declared variables
 
@@ -51,12 +56,7 @@ BEGIN
                             Cd = l_Cd, Sn = l_Sn, Sb = l_Sb, Ba = l_Ba, Tl = l_Tl, Pb = l_Pb,
                             Bi = l_Bi;
 
-    IF no_more_records THEN
-      LEAVE animal_loop;
-    END IF;
-
     UNTIL no_more_records
-
   END REPEAT animal_loop;
   CLOSE cu2;
   SET no_more_records = 0;

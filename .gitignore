@@ -3,6 +3,7 @@
 .idea
 .DS_store
 ConfigList*.txt
+runlist*.txt
 venv/
 Vault/
 241120/

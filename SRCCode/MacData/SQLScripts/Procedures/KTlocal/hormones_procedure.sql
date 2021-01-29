@@ -19,6 +19,8 @@ BEGIN
 
   DECLARE CONTINUE HANDLER FOR NOT FOUND SET no_more_records = 1;
 
+  SELECT 'Running hormones_procedure';
+
   OPEN cu2;
   hormones_loop:REPEAT
     FETCH cu2 INTO l_SampleID, l_Cortisol, l_Testosterone, l_Estradiol, l_Progesterone, l_T3; #we declared the cursor, we are taking the info from the cursor and putting it into these declared variables

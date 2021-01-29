@@ -35,6 +35,8 @@ BEGIN
   SET l_tablename = 'metals';
   SET l_colstart = 3;
 
+  SELECT 'Running comples_example_procedure';
+
   SELECT COUNT(column_name) INTO l_colcount FROM information_schema.columns WHERE table_name = l_tablename;
 
   OPEN cu2;

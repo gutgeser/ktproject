@@ -1,8 +1,17 @@
+info_list_functions(){
+  printf '\n'
+  echo 'These app functions are available:'
+  echo '##########################################'
+  declare -F
+  echo '##########################################'
+  printf '\n'
+}
+
 parse_config_list() {
     OLDIFS=$IFS
     IFS=' '
     if [ -f "$_CONFIG_FILE" ]; then
-      while read -r confname host hostconfigtype project projectconfigtype database action note
+      while read -r confname host hostconfigtype project projectconfigtype database action param note
       do
         if [[ $1 == ${confname} ]]; then
           _CONFIG_NAME="${confname}"
@@ -12,7 +21,16 @@ parse_config_list() {
           _CONFIG_PROJECT_TYPE="${projectconfigtype}"
           _CONFIG_DATABASE="${database}"
           _CONFIG_ACTION="${action}"
-          _CONFIG_NOTE="${note}"
+          if [[ ${param:0:1} == '#' ]]; then
+            _CONFIG_ACTIONPARAM=''
+            _CONFIG_NOTE="${param}"
+          elif [[ ${param:0:1} == '[' ]]; then
+            _CONFIG_ACTIONPARAM="${param:1:${#param}-2}"
+            _CONFIG_NOTE="${note}"
+          else
+            _CONFIG_ACTIONPARAM=''
+            _CONFIG_NOTE=''
+          fi
         fi
       done < ${_CONFIG_FILE}
     fi
@@ -100,11 +118,19 @@ configure_mysql_server_standard() {
   sudo service mariadb start
 }
 
-load_csv_files() {
+load_app_csv_files() {
   arr=("$@")
   for i in "${arr[@]}"; do
     tablename=$(echo "$i" | cut -f 1 -d '.')
-    load_csv_file_into_new_temporary_table ${tablename}
+    load_app_csv_file_into_new_temporary_table ${tablename}
+  done
+}
+
+load_project_csv_files() {
+  arr=("$@")
+  for i in "${arr[@]}"; do
+    tablename=$(echo "$i" | cut -f 1 -d '.')
+    load_project_csv_file_into_new_temporary_table ${tablename}
   done
 }
 
@@ -116,8 +142,23 @@ normalize_csv_file_contents_crlf_to_lf(){
     tr -d '\015' < $filelocation > $filepath'/'$tablename'.csv'
   fi
 }
+load_app_csv_file_into_new_temporary_table() {
+  tablename=$1;
+  echo $tablename;
+  mysql -u 'root' -h 'localhost' --password=$_MYSQL_ROOT_PASSWORD $_CONFIG_DATABASE < 'SRCCode/App/SQLScripts/Schemas/'$_CONFIG_DATABASE'/'$tablename'.sql'
+  normalize_csv_file_contents_crlf_to_lf $tablename $_SERVER_PROJECT_ROOT_DIR'/Data/App/CSV'
+  mysqlimport --ignore-lines=1 --fields-terminated-by=, --verbose -u 'root' -h 'localhost' --password=$_MYSQL_ROOT_PASSWORD $_CONFIG_DATABASE $_SERVER_PROJECT_ROOT_DIR'/Data/App/CSV/'$tablename'.csv'
+}
 
-load_csv_file_into_new_temporary_table() {
+
+load_app_csv_file_into_existing_temporary_table() {
+  tablename=$1;
+  echo $tablename;
+  normalize_csv_file_contents_crlf_to_lf $tablename $_SERVER_PROJECT_ROOT_DIR'/Data/App/CSV'
+  mysqlimport --ignore-lines=1 --fields-terminated-by=, --verbose -u 'root' -h 'localhost' --password=$_MYSQL_ROOT_PASSWORD $_CONFIG_DATABASE $_SERVER_PROJECT_ROOT_DIR'/Data/App/CSV/'$tablename'.csv'
+}
+
+load_project_csv_file_into_new_temporary_table() {
   tablename=$1;
   echo $tablename;
   mysql -u 'root' -h 'localhost' --password=$_MYSQL_ROOT_PASSWORD $_CONFIG_DATABASE < 'SRCCode/'$_CONFIG_PROJECT'/SQLScripts/Schemas/'$_CONFIG_DATABASE'/'$tablename'.sql'
@@ -125,8 +166,7 @@ load_csv_file_into_new_temporary_table() {
   mysqlimport --ignore-lines=1 --fields-terminated-by=, --verbose -u 'root' -h 'localhost' --password=$_MYSQL_ROOT_PASSWORD $_CONFIG_DATABASE $_SERVER_PROJECT_ROOT_DIR'/Data/'$_CONFIG_PROJECT'/CSV/'$tablename'.csv'
 }
 
-
-load_csv_file_into_existing_temporary_table() {
+load_project_csv_file_into_existing_temporary_table() {
   tablename=$1;
   echo $tablename;
   normalize_csv_file_contents_crlf_to_lf $tablename $_SERVER_PROJECT_ROOT_DIR'/Data/'$_CONFIG_PROJECT'/CSV'
