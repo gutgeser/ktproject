@@ -3,7 +3,20 @@
 # ./run.sh myselectedconfig
 #######################################################################################################################
 CONFIGURATION=$1
-_CONFIG_FILE=('runFiles/runlist1.txt') # The file that lists your configurations and will be used now for this run
+_CONFIG_FILE='runFiles/runlist_1.txt' # Default runlist used if no second argument is passed at invocation
+echo $2; # Optional second argument at invocation can be the number of the alternate list , ie: 2
+#######################################################################################################################
+#######################################################################################################################
+if [[ ${#2} > 0 ]]; then
+  altfile='runFiles/runlist_'$2'.txt';
+  echo $altfile;
+  if [ -f "$altfile" ]; then
+    _CONFIG_FILE=$altfile # The file that lists your configurations and will be used now for this run
+  else
+    echo 'No runlist with name runlist_'$2'.txt exists'
+    exit
+  fi
+fi
 #######################################################################################################################
 source 'SRCCode/App/APPFUNCS.sh'
 parse_config_list ${CONFIGURATION}
