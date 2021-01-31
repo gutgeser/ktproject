@@ -37,6 +37,14 @@ parse_config_list() {
     IFS=$OLDIFS
 }
 
+extract_local_context() {
+  source=$1;
+  localpath=${source:8}
+  localbackcontextname=${localpath#*/}
+  localcontextname=${localpath%"$localbackcontextname"}
+  localcontextname=${localcontextname:0:-1}
+}
+
 load_app_schema_files() {
   arr=("$@")
   for i in "${arr[@]}"; do

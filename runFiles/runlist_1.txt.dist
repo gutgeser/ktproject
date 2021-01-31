@@ -9,10 +9,10 @@ runName               Server         ServerConfig    Project     runFiles       
 1_loadDB              vagrantlocal   default_config  App         ktlocal_A         KTlocal             KTlocal/recreate_and_load_database                #
 1_loadDBwithCSV       vagrantlocal   default_config  App         ktlocal_A         KTlocal             KTlocal/recreate_and_load_database_and_csv_files  #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
 
-1_runPyScript         vagrantlocal   default_config  App         ktlocal_A         KTlocal             run_python_script [testme.py]                     #RUNS_ANY_PYTHON_SCRIPT_PASSED_IN_SQUARE_BRACKETS
-1_runShRobZ           vagrantlocal   default_config  App         ktlocal_A         KTlocal             run_shell_script [rob_zscore.sh]                  #RUNS_ANY_SHELL_SCRIPT_PASSED_IN_SQUARE_BRACKETS_SUBDIRS_POSSIBLE
-1_runShScript         vagrantlocal   default_config  App         ktlocal_A         KTlocal             run_shell_script [dump_tabledata.sh]              #RUNS_ANY_SHELL_SCRIPT_PASSED_IN_SQUARE_BRACKETS_SUBDIRS_POSSIBLE
-1_runSQLQuery         vagrantlocal   default_config  App         ktlocal_A         KTlocal             run_sql_query [callProcs.sql]                     #RUNS_ANY_SQL_PASSED_IN_SQUARE_BRACKETS_ON_THE_SPECIFIED_DATABASE
+1_runPyScript         vagrantlocal   default_config  App         ktlocal_A         KTlocal             Util/run_python_script [testme.py]                     #RUNS_ANY_PYTHON_SCRIPT_PASSED_IN_SQUARE_BRACKETS
+1_runShRobZ           vagrantlocal   default_config  App         ktlocal_A         KTlocal             Util/run_shell_script [rob_zscore.sh]                  #RUNS_ANY_SHELL_SCRIPT_PASSED_IN_SQUARE_BRACKETS_SUBDIRS_POSSIBLE
+1_runShScript         vagrantlocal   default_config  App         ktlocal_A         KTlocal             Util/run_shell_script [dump_tabledata.sh]              #RUNS_ANY_SHELL_SCRIPT_PASSED_IN_SQUARE_BRACKETS_SUBDIRS_POSSIBLE
+1_runSQLQuery         vagrantlocal   default_config  App         ktlocal_A         KTlocal             Util/run_sql_query [callProcs.sql]                     #RUNS_ANY_SQL_PASSED_IN_SQUARE_BRACKETS_ON_THE_SPECIFIED_DATABASE
 
 2_loadCsvOnly         vagrantlocal   default_config  MacData     ktlocal_A         KTlocal             DB/load_csv_files                                 #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
 2_loadDB              vagrantlocal   default_config  MacData     ktlocal_A         KTlocal             KTlocal/recreate_and_load_database                #
