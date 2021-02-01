@@ -1,0 +1,1 @@
+call_app_query_sql_script_as_root 'ExampleDB/drop_examples_tables.sql'

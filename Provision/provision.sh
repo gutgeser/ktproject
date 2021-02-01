@@ -24,3 +24,7 @@
 # vagrant vbguest --do install
 # vagrant halt
 # vagrant up
+
+# CREATE A WORLD WRITABLE DATAOUTPUT DIR:
+# mkdir /vagrant/Output/DATADUMPS
+# sudo chmod 777 /vagrant/Output/DATADUMPS

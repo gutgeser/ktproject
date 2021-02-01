@@ -1,0 +1,2 @@
+call_app_query_sql_script_as_root 'ExampleDB/join_examples.sql'
+call_app_query_sql_script_as_root 'ExampleDB/subqueries_examples.sql'
