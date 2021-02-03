@@ -1,32 +1,35 @@
-runName               Server         ServerConfig    Project     runFiles          Database            Action [Parameter]                                #Notes(NO_SPACES_HERE)
---------------        ------------   ------------    --------    -------------     --------            --------------------------------------            #----------------------------------------------------------
+
+runName               Server         ServerConfig    Project     runFiles          Database            Action                                            Notes(NO_SPACES_HERE)
+--------------        ------------   ------------    --------    -------------     --------            --------------------------------------            ----------------------------------------------------------
 1_createDB            vagrantlocal   default_config  App         default           KTlocal             DB/Admin/create_new_db                            #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER_WHEN_DB_IS_CREATED_FOR_THE_FIRST_TIME
-1_recreateDB          vagrantlocal   default_config  App         default           KTlocal             DB/Admin/recreate_db                              #
+1_recreateDB          vagrantlocal   default_config  App         default           KTlocal             DB/Admin/recreate_db                              #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER_WHEN_DB_IS_CREATED_FOR_THE_FIRST_TIME
+
 1_grantDBAccess       vagrantlocal   default_config  App         default           KTlocal             DB/Admin/grant_users_access_to_db                 #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
 1_revokeDBAccess      vagrantlocal   default_config  App         default           KTlocal             DB/Admin/revoke_users_access_to_db                #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
 
 1_loadCsvOnly         vagrantlocal   default_config  App         ktlocal_A         KTlocal             DB/load_csv_files                                 #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
-1_loadDB              vagrantlocal   default_config  App         ktlocal_A         KTlocal             KTlocal/recreate_and_load_database                #
+
+1_loadDB              vagrantlocal   default_config  App         ktlocal_A         KTlocal             KTlocal/recreate_and_load_database                #THIS_RELOADS_THE_DATABASE_ON_THE_LOCAL_SERVER
 1_loadDBwithCSV       vagrantlocal   default_config  App         ktlocal_A         KTlocal             KTlocal/recreate_and_load_database_and_csv_files  #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
 
-1_runPyScript         vagrantlocal   default_config  App         ktlocal_A         KTlocal             Util/run_python_script [testme.py]                     #RUNS_ANY_PYTHON_SCRIPT_PASSED_IN_SQUARE_BRACKETS
-1_runShRobZ           vagrantlocal   default_config  App         ktlocal_A         KTlocal             Util/run_shell_script [rob_zscore.sh]                  #RUNS_ANY_SHELL_SCRIPT_PASSED_IN_SQUARE_BRACKETS_SUBDIRS_POSSIBLE
-1_runShScript         vagrantlocal   default_config  App         ktlocal_A         KTlocal             Util/run_shell_script [dump_tabledata.sh]              #RUNS_ANY_SHELL_SCRIPT_PASSED_IN_SQUARE_BRACKETS_SUBDIRS_POSSIBLE
-1_runSQLQuery         vagrantlocal   default_config  App         ktlocal_A         KTlocal             Util/run_sql_query [callProcs.sql]                     #RUNS_ANY_SQL_PASSED_IN_SQUARE_BRACKETS_ON_THE_SPECIFIED_DATABASE
-
 2_loadCsvOnly         vagrantlocal   default_config  MacData     ktlocal_A         KTlocal             DB/load_csv_files                                 #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
-2_loadDB              vagrantlocal   default_config  MacData     ktlocal_A         KTlocal             KTlocal/recreate_and_load_database                #
+2_loadDB              vagrantlocal   default_config  MacData     ktlocal_A         KTlocal             KTlocal/recreate_and_load_database                #THIS_RELOADS_THE_DATABASE_ON_THE_LOCAL_SERVER
 2_loadDBwithCSV       vagrantlocal   default_config  MacData     ktlocal_A         KTlocal             KTlocal/recreate_and_load_database_and_csv_files  #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
-2_runSQLQuery         vagrantlocal   default_config  MacDATA     ktlocal_A         KTlocal             run_sql_query [callProcs.sql]                     #RUNS_ANY_SQL_PASSED_IN_SQUARE_BRACKETS_ON_THE_SPECIFIED_DATABASE
-
+2_runShScript         vagrantlocal   default_config  App         ktlocal_A         KTlocal             Util/run_shell_script [rob_zscore.sh]             #RUNS_ANY_SHELL_SCRIPT_PASSED_IN_SQUARE_BRACKETS_SUBDIRS_POSSIBLE
 
 3_createDB            vagrantlocal   default_config  App         exampledb         ExampleDB           DB/Admin/create_new_db                            #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER_WHEN_DB_IS_CREATED_FOR_THE_FIRST_TIME
-3_recreateDB          vagrantlocal   default_config  App         exampledb         ExampleDB           DB/Admin/recreate_db                              #
+3_recreateDB          vagrantlocal   default_config  App         exampledb         ExampleDB           DB/Admin/recreate_db                              #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER_WHEN_DB_IS_CREATED_FOR_THE_FIRST_TIME
 3_grantDBAccess       vagrantlocal   default_config  App         exampledb         ExampleDB           DB/Admin/grant_users_access_to_db                 #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
-3_runExamples         vagrantlocal   default_config  App         exampledb         ExampleDB           Examples/run_examples                             #
-3_deleteExamples      vagrantlocal   default_config  App         exampledb         ExampleDB           Examples/delete_examples                          #
+3_runExamples         vagrantlocal   default_config  App         exampledb         ExampleDB           Examples/run_examples                             #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
+3_deleteExamples      vagrantlocal   default_config  App         exampledb         ExampleDB           Examples/delete_examples                          #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
+
 3_deleteDB            vagrantlocal   default_config  App         exampledb         ExampleDB           DB/Admin/delete_db                                #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
 
 x_loadNewUsers        vagrantlocal   default_config  App         default           NONE                DB/Admin/load_new_mysql_users                     #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
 x_changeUsersPW       vagrantlocal   default_config  App         default           NONE                DB/Admin/update_users_passwords                   #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
 x_deleteUsers         vagrantlocal   default_config  App         default           NONE                DB/Admin/delete_users_on_hosts                    #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
+
+x_createDBFolders     vagrantlocal   default_config  Project     default           DbName              Util/create_db_sql_folders                        #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
+x_createNewProject    vagrantlocal   default_config  App         default           NONE                Util/create_new_project [NewProject]              #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
+x_cloneNewApp         vagrantlocal   default_config  App         default           NONE                Util/clone_new_app [NewAppName]                   #THIS_NEEDS_TO_BE_INVOKED_ON_SERVER
+
